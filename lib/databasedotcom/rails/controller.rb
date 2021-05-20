@@ -6,10 +6,11 @@ module Databasedotcom
           unless @dbdc_client
             config = YAML.load(ERB.new(File.read(File.join(::Rails.root, 'config', 'databasedotcom.yml'))).result)
             config = config.has_key?(::Rails.env) ? config[::Rails.env] : config
+            host = config["host"]
             username = config["username"]
             password = config["password"]
             @dbdc_client = Databasedotcom::Client.new(config)
-            @dbdc_client.authenticate(:username => username, :password => password)
+            @dbdc_client.authenticate(:host => host, :username => username, :password => password)
           end
 
           @dbdc_client
