@@ -10,7 +10,8 @@ module Databasedotcom
             username = config["username"]
             password = config["password"]
             @dbdc_client = Databasedotcom::Client.new(config)
-            @dbdc_client.authenticate(:host => host, :username => username, :password => password)
+            @dbdc_client.host = host if !host.nil?
+            @dbdc_client.authenticate(:username => username, :password => password)
           end
 
           @dbdc_client
